@@ -7,10 +7,21 @@ const sequelize = require("../bd.js");
 const Upload = sequelize.define(
   "Upload",
   {
+   
+    name:{
+      type:DataTypes.STRING,
+      allowNull:false
+    }
+      ,
     image: {
       type:DataTypes.STRING,
       allowNull: false,
     },
+    
+    age:{
+      type:DataTypes.INTEGER,
+      allowNull:false
+    }
     
   }
 );

@@ -35,13 +35,24 @@ cloudinary.config({
 
 const send = async(req, res)=> {
 try {
-/*     console.log(req.file);
-    res.send("file upload"); */
-     const result = await cloudinary.uploader.upload(req.file.path);
-      console.log(result)
-      const data = await Upload.create(
-      { image: result.secure_url});
-     return res.json(data);
+    
+    let{name,age}=req.body;
+    let image=req.file;
+      
+      const cloudinaryUpload = await cloudinary.uploader.upload(image.path, {
+      folder: 'uploads',
+    }); 
+      const obj = await Upload.create(
+      { 
+        name,
+        image: cloudinaryUpload.secure_url,
+        age
+    
+      });
+
+      console.log(`datos almacenados en bd y en el cloudinary: ${cloudinaryUpload.secure_url} `)
+       return res.json(obj); 
+  //console.log(name,age,cloudinaryUpload.secure_url)
   
 } catch (error) {
    console.error(error);
